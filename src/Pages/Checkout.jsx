@@ -9,7 +9,7 @@ const Checkout = () => {
     address: "",
   });
 
-  const submitArray = [];
+  const [submitArray, setSubmitArray] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,16 +21,16 @@ const Checkout = () => {
         address: userData.address,
         checkOutData: state,
       };
-      submitArray.push(userObj);
+      setSubmitArray([...submitArray, userObj]);
 
       console.log(submitArray);
-    }else{
-      console.log("No Cart Item Found")
+    } else {
+      console.log("No Cart Item Found");
     }
   };
 
   return (
-    <div className=" flex justify-center">
+    <div className=" flex flex-col items-center">
       <form
         onSubmit={handleSubmit}
         className=" flex flex-col space-y-4  w-[300px] border-2 border-black "
@@ -62,6 +62,11 @@ const Checkout = () => {
           Submit
         </button>
       </form>
+      {submitArray.length > 0 && (
+        <div className=" flex mt-6 ">
+          <h1>Checkout Done : `${JSON.stringify(submitArray)}`</h1>
+        </div>
+      )}
     </div>
   );
 };
